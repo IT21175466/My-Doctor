@@ -6,6 +6,7 @@ const validatePassword = (password) => {
     return password.length >= 8 && /[A-Z]/.test(password) && /[0-9]/.test(password) && /[!@#$%^&*]/.test(password);
 };
 
+//Manual SignUp
 const manualSignUpWithEmailPassword = async (req, res) => {
     
     // Email validation regex
@@ -80,4 +81,35 @@ const manualSignUpWithEmailPassword = async (req, res) => {
     }
 };
 
-module.exports = { manualSignUpWithEmailPassword };
+//Sign In With Google
+const signInWithGoogle = async (req, res) => {
+    const { idToken } = req.body;
+
+    if (!idToken) {
+        return res.status(400).json({ error: 'ID token is required' });
+    }
+
+    try {
+        // Verify the Google ID
+        const decodedToken = await admin.auth().verifyIdToken(idToken);
+        const uid = decodedToken.uid;
+
+        const email = decodedToken.email;
+
+        const customToken = await admin.auth().createCustomToken(uid);
+
+        //Send Response
+        return res.status(200).json({
+            message: "Login Success!",
+            userId: userRecord.uid,
+            email: userRecord.email,
+            token: customToken
+        });
+        
+    } catch (error) {
+        console.error('Error verifying Google ID token:', error);
+        return res.status(401).json({ error: 'Invalid ID token' });
+    }
+};
+
+module.exports = { manualSignUpWithEmailPassword, signInWithGoogle };

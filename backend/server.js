@@ -6,7 +6,7 @@ const admin = require("firebase-admin");
 const credentials = require("./serviceAccountKey.json");
 
 //Controllers
-const { manualSignUpWithEmailPassword } = require('./controllers/auth_controller');
+const { manualSignUpWithEmailPassword, signInWithGoogle } = require('./controllers/auth_controller');
 
 admin.initializeApp({
     credential: admin.credential.cert(credentials)
@@ -18,6 +18,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //Routes
 app.post('/api/auth/manualsignup', manualSignUpWithEmailPassword);
+
+app.post('/api/auth/signinwithgoogle', signInWithGoogle);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
