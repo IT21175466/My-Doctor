@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_doctor/constants/app_colors.dart';
 import 'package:my_doctor/features/authentication/bloc/auth_bloc.dart';
 import 'package:my_doctor/features/authentication/ui/home_page.dart';
+import 'package:my_doctor/features/authentication/ui/sign_up_page.dart';
 import 'package:my_doctor/widgets/basic_button.dart';
 import 'package:my_doctor/widgets/login_option_card.dart';
 import 'package:my_doctor/widgets/text_field.dart';
@@ -21,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool isLoading = false;
 
-  AuthBloc _authBloc = AuthBloc();
+  final AuthBloc _authBloc = AuthBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -31,15 +32,14 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocConsumer<AuthBloc, AuthState>(
       bloc: _authBloc,
       listener: (context, state) {
-        if (state is LogininProgressState) {
+        if (state is LoginProgressState) {
           isLoading = true;
         } else if (state is LoginSucessState) {
           isLoading = false;
-          //Navigate to home page
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => HomePage(),
+              builder: (context) => const HomePage(),
             ),
           );
         } else if (state is LoginErrorState) {
@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SnackBar(
               content: Text(
                 state.error.toString(),
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'Lato',
                   fontWeight: FontWeight.w400,
                   color: Colors.white,
@@ -67,13 +67,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 Container(
                   height: screenHeight - AppBar().preferredSize.height,
                   width: screenWidth,
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Spacer(),
-                      Spacer(),
-                      Text(
+                      const Spacer(),
+                      const Spacer(),
+                      const Text(
                         'Login',
                         style: TextStyle(
                           fontFamily: 'Lato',
@@ -82,16 +83,42 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontSize: 35,
                         ),
                       ),
-                      Text(
-                        'Enjoy with our dotor booking app!',
-                        style: TextStyle(
-                          fontFamily: 'Lato',
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.textGrayColor,
-                          fontSize: 15,
-                        ),
+                      Row(
+                        children: [
+                          const Text(
+                            "Don't Have an Account?",
+                            style: TextStyle(
+                              fontFamily: 'Lato',
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.textGrayColor,
+                              fontSize: 15,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const SignUpPage(),
+                                ),
+                              );
+                            },
+                            child: const Text(
+                              "SignUp",
+                              style: TextStyle(
+                                fontFamily: 'Lato',
+                                fontWeight: FontWeight.w500,
+                                color: Colors.blue,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 50,
                       ),
                       CustomTextField(
@@ -112,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (emailController.text.isEmpty ||
                               passwordController.text.isEmpty) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
+                              const SnackBar(
                                 content: Text(
                                   'Please enter required details!',
                                   style: TextStyle(
@@ -149,8 +176,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             width: screenWidth / 3,
                             color: AppColors.borderGrayColor,
                           ),
-                          Spacer(),
-                          Text(
+                          const Spacer(),
+                          const Text(
                             'Or',
                             style: TextStyle(
                               fontFamily: 'Lato',
@@ -159,7 +186,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontSize: 15,
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Container(
                             height: 1,
                             width: screenWidth / 3,
@@ -180,7 +207,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: screenWidth,
                         icon: 'facebook.png',
                       ),
-                      Spacer(),
+                      const Spacer(),
                     ],
                   ),
                 ),
@@ -189,13 +216,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: screenHeight,
                         width: screenWidth,
                         color: Colors.black.withOpacity(0.6),
-                        child: Center(
+                        child: const Center(
                           child: CircularProgressIndicator(
                             color: Colors.white,
                           ),
                         ),
                       )
-                    : SizedBox(),
+                    : const SizedBox(),
               ],
             ),
           ),

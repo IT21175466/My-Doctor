@@ -1,5 +1,6 @@
 const admin = require("firebase-admin");
 const bcrypt = require('bcrypt');
+const firebase = require('firebase/app');
 
 // Password validation
 const validatePassword = (password) => {
@@ -81,6 +82,63 @@ const manualSignUpWithEmailPassword = async (req, res) => {
     }
 };
 
+//Manual Login
+const manualLoginWithEmailPassword = async (req, res) => {
+    
+    try{
+    
+        //Get user data
+        const email  = req.body.email;
+        const password = req.body.password;
+
+        //Check required details
+        if (!email || !password) {
+            console.log("Missing email or password");
+            return res.status(400).json({ error: 'Email and password are required' });
+        }
+
+        //Login user
+        const userRecord = await admin.auth().getUserByEmail(email);
+
+        if (!userRecord) {
+            return res.status(404).json({ message: 'User not found' });
+        }else{
+            const userDoc = await admin.firestore().collection('users').doc(userRecord.uid).get();
+
+            const userData = userDoc.data();
+
+            //Check password
+            const encryptedPassword = userData.password;
+
+            const passwordMatch = await bcrypt.compare(password, encryptedPassword);
+
+            if (!passwordMatch) {
+                return res.status(401).json({ message: 'Invalid password' });
+            }
+
+            const customToken = await admin.auth().createCustomToken(userRecord.uid);
+
+            //Send Response
+            return res.status(200).json({
+                message: "User logined up successfully",
+                userId: userRecord.uid,
+                email: userRecord.email,
+                token: customToken
+            });
+
+        }
+
+    } catch (error) {
+        console.error('Error in Firebase Admin:', error);
+
+        if (error.code === 'auth/user-not-found') {
+            return res.status(409).json({ error: 'User not Found!' });
+        }
+
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
 //Sign In With Google
 const signInWithGoogle = async (req, res) => {
     const { idToken } = req.body;
@@ -112,4 +170,4 @@ const signInWithGoogle = async (req, res) => {
     }
 };
 
-module.exports = { manualSignUpWithEmailPassword, signInWithGoogle };
+module.exports = { manualSignUpWithEmailPassword, signInWithGoogle, manualLoginWithEmailPassword };

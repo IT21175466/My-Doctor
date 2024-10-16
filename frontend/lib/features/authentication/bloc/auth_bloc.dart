@@ -11,14 +11,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _authRepository = AuthRepository();
 
   AuthBloc() : super(AuthInitial()) {
+    on<SignUpButtonClickedEvent>(signUpButtonClickedEvent);
     on<LoginButtonClickedEvent>(loginButtonClickedEvent);
+  }
+
+  FutureOr<void> signUpButtonClickedEvent(
+      SignUpButtonClickedEvent event, Emitter<AuthState> emit) async {
+    try {
+      emit(SignUpProgressState());
+      await _authRepository.manualSignUp(event.email, event.password);
+      emit(SignUpSucessState());
+    } catch (e) {
+      emit(SignUpErrorState(error: e.toString()));
+    }
   }
 
   FutureOr<void> loginButtonClickedEvent(
       LoginButtonClickedEvent event, Emitter<AuthState> emit) async {
     try {
-      emit(LogininProgressState());
-      await _authRepository.manualSignUp(event.email, event.password);
+      emit(LoginProgressState());
+      await _authRepository.manualLogin(event.email, event.password);
       emit(LoginSucessState());
     } catch (e) {
       emit(LoginErrorState(error: e.toString()));
