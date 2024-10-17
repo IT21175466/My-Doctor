@@ -199,12 +199,12 @@ class _SignUpPageState extends State<SignUpPage> {
                         height: 25,
                       ),
                       LoginOptionCard(
-                        mainText: 'SignUp with Google',
+                        mainText: 'Continue with Google',
                         width: screenWidth,
                         icon: 'google.png',
                       ),
                       LoginOptionCard(
-                        mainText: 'SignUp with Facebook',
+                        mainText: 'Continue with Facebook',
                         width: screenWidth,
                         icon: 'facebook.png',
                       ),
