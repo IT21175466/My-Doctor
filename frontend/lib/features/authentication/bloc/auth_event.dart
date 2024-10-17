@@ -19,3 +19,7 @@ class ValidatingSessionEvent extends AuthEvent {
   final String token;
   ValidatingSessionEvent({required this.token});
 }
+
+class LoginWithGoogleButtonClickedEvent extends AuthEvent {}
+
+class LoginWithFacebookButtonClickedEvent extends AuthEvent {}

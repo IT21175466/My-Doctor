@@ -152,7 +152,7 @@ const manualLoginWithEmailPassword = async (req, res) => {
 
             //Send Response
             return res.status(200).json({
-                message: "User logined up successfully",
+                message: "Login Success",
                 userId: userRecord.uid,
                 email: userRecord.email,
                 token: req.session.id
@@ -172,34 +172,47 @@ const manualLoginWithEmailPassword = async (req, res) => {
 };
 
 //Sign In With Google
-const signInWithGoogle = async (req, res) => {
-    const { idToken } = req.body;
+const signInWithGoogleOrFacebook = async (req, res) => {
+    const email = req.body.email;
+    const uID = req.body.uID;
 
-    if (!idToken) {
-        return res.status(400).json({ error: 'ID token is required' });
+    if (!email) {
+        return res.status(400).json({ error: 'Email is required' });
     }
 
     try {
-        // Verify the Google ID
-        const decodedToken = await admin.auth().verifyIdToken(idToken);
-        const uid = decodedToken.uid;
 
-        const email = decodedToken.email;
+        const userData = {
+            email: email,
+            password: uID, 
+            sessionID: req.session.id,
+            createdAt: admin.firestore.FieldValue.serverTimestamp()
+        };
 
-        const customToken = await admin.auth().createCustomToken(uid);
+        const userDoc = await admin.firestore().collection('users').doc(uID).get();
+
+        if (!userDoc.exists) {
+            await admin.firestore().collection('users').doc(uID).set(userData);
+        } 
+
+        //Create session
+        req.session.user = {
+            uid: uID,
+            email: email
+        };
 
         //Send Response
         return res.status(200).json({
-            message: "Login Success!",
-            userId: userRecord.uid,
-            email: userRecord.email,
-            token: customToken
+            message: "Login Success",
+            userId: uID,
+            email: email,
+            token: req.session.id,
         });
         
     } catch (error) {
-        console.error('Error verifying Google ID token:', error);
+        console.error('Error verifying Google or Facebook ID token:', error);
         return res.status(401).json({ error: 'Invalid ID token' });
     }
 };
 
-module.exports = { manualSignUpWithEmailPassword, signInWithGoogle, manualLoginWithEmailPassword, validateSession };
+module.exports = { manualSignUpWithEmailPassword, signInWithGoogleOrFacebook, manualLoginWithEmailPassword, validateSession };

@@ -58,6 +58,57 @@ class _SignUpPageState extends State<SignUpPage> {
               backgroundColor: Colors.redAccent,
             ),
           );
+        } else if (state is LoginingWithGoogleState) {
+          isLoading = true;
+        } else if (state is LoginingWithGoogleSucessState) {
+          isLoading = false;
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomePage(),
+            ),
+          );
+        } else if (state is LoginingWithGoogleErrorState) {
+          isLoading = false;
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                state.error.toString(),
+                style: const TextStyle(
+                  fontFamily: 'Lato',
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white,
+                ),
+              ),
+              backgroundColor: Colors.redAccent,
+            ),
+          );
+        } else if (state is LoginingWithFacebookState) {
+          isLoading = true;
+        } else if (state is LoginingWithFacebookSucessState) {
+          isLoading = false;
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomePage(),
+            ),
+          );
+        } else if (state is LoginingWithFacebookErrorState) {
+          isLoading = false;
+          print(state.error);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                state.error.toString(),
+                style: const TextStyle(
+                  fontFamily: 'Lato',
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white,
+                ),
+              ),
+              backgroundColor: Colors.redAccent,
+            ),
+          );
         }
       },
       builder: (context, state) {
@@ -198,15 +249,25 @@ class _SignUpPageState extends State<SignUpPage> {
                       const SizedBox(
                         height: 25,
                       ),
-                      LoginOptionCard(
-                        mainText: 'SignUp with Google',
-                        width: screenWidth,
-                        icon: 'google.png',
+                      GestureDetector(
+                        onTap: () {
+                          _authBloc.add(LoginWithGoogleButtonClickedEvent());
+                        },
+                        child: LoginOptionCard(
+                          mainText: 'Continue with Google',
+                          width: screenWidth,
+                          icon: 'google.png',
+                        ),
                       ),
-                      LoginOptionCard(
-                        mainText: 'SignUp with Facebook',
-                        width: screenWidth,
-                        icon: 'facebook.png',
+                      GestureDetector(
+                        onTap: () {
+                          _authBloc.add(LoginWithFacebookButtonClickedEvent());
+                        },
+                        child: LoginOptionCard(
+                          mainText: 'Continue with Facebook',
+                          width: screenWidth,
+                          icon: 'facebook.png',
+                        ),
                       ),
                       const Spacer(),
                     ],

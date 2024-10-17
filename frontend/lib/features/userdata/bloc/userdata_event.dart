@@ -4,3 +4,5 @@ part of 'userdata_bloc.dart';
 sealed class UserdataEvent {}
 
 class GettingUserDataRequestEvent extends UserdataEvent {}
+
+class LoginingOutEvent extends UserdataEvent {}
