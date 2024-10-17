@@ -17,13 +17,12 @@ class AuthRepository {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
 
-      //Get Session Token
-      String sessionToken = data['token'];
+      //Get sessionID
+      String sessionID = data['token'];
 
-      await SecureStorage().storeSessionToken('token', sessionToken);
-      print('Token: $sessionToken');
+      await SecureStorage().storeSessionToken('token', sessionID);
+      print('Token: $sessionID');
     } else {
-      print('Failed to SighUp: ${response.body}');
       final data = jsonDecode(response.body);
 
       String errorMessage = data['error'] ?? 'An unknown error occurred';
@@ -46,11 +45,11 @@ class AuthRepository {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
 
-      //Get Session Token
-      String sessionToken = data['token'];
+      //Get sessionID
+      String sessionID = data['token'];
 
-      await SecureStorage().storeSessionToken('token', sessionToken);
-      print('Token: $sessionToken');
+      await SecureStorage().storeSessionToken('token', sessionID);
+      print('Token: $sessionID');
     } else if (response.statusCode == 401) {
       final data = jsonDecode(response.body);
 

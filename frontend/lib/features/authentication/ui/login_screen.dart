@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_doctor/constants/app_colors.dart';
 import 'package:my_doctor/features/authentication/bloc/auth_bloc.dart';
-import 'package:my_doctor/features/authentication/ui/home_page.dart';
+import 'package:my_doctor/features/userdata/ui/home_page.dart';
 import 'package:my_doctor/features/authentication/ui/sign_up_page.dart';
 import 'package:my_doctor/widgets/basic_button.dart';
 import 'package:my_doctor/widgets/login_option_card.dart';
