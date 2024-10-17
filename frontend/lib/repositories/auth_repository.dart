@@ -89,10 +89,10 @@ class AuthRepository {
     }
   }
 
-  //Google Login
-  Future<void> loginWithGoogle(String? email, String? userID) async {
+  //Google or Facebook Login
+  Future<void> loginWithGoogleAndFacebook(String? email, String? userID) async {
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:8080/api/auth/signinwithgoogle'),
+      Uri.parse('http://10.0.2.2:8080/api/auth/signinwithgoogleorfacebook'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         'email': email,

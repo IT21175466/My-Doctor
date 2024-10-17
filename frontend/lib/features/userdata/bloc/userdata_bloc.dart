@@ -38,6 +38,7 @@ class UserdataBloc extends Bloc<UserdataEvent, UserdataState> {
       emit(LoggingOutState());
       await SecureStorage().deleteSessionToken();
       await _authServices.signOutFromGoogle();
+      await _authServices.signOutFromFacebook();
       emit(LoggingOutSucessState());
     } catch (e) {
       emit(LoggingOutErrorState(error: e.toString()));

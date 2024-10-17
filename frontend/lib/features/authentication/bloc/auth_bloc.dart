@@ -17,6 +17,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginButtonClickedEvent>(loginButtonClickedEvent);
     on<ValidatingSessionEvent>(validatingSessionEvent);
     on<LoginWithGoogleButtonClickedEvent>(loginWithGoogleButtonClickedEvent);
+    on<LoginWithFacebookButtonClickedEvent>(
+        loginWithFacebookButtonClickedEvent);
   }
 
   FutureOr<void> signUpButtonClickedEvent(
@@ -61,6 +63,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(LoginingWithGoogleSucessState());
     } catch (e) {
       emit(LoginingWithGoogleErrorState(error: e.toString()));
+    }
+  }
+
+  FutureOr<void> loginWithFacebookButtonClickedEvent(
+      LoginWithFacebookButtonClickedEvent event,
+      Emitter<AuthState> emit) async {
+    try {
+      emit(LoginingWithFacebookState());
+      await _authServices.signInWithFacebook();
+      emit(LoginingWithFacebookSucessState());
+    } catch (e) {
+      emit(LoginingWithFacebookErrorState(error: e.toString()));
     }
   }
 }

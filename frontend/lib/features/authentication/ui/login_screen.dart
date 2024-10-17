@@ -82,6 +82,32 @@ class _LoginScreenState extends State<LoginScreen> {
               backgroundColor: Colors.redAccent,
             ),
           );
+        } else if (state is LoginingWithFacebookState) {
+          isLoading = true;
+        } else if (state is LoginingWithFacebookSucessState) {
+          isLoading = false;
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomePage(),
+            ),
+          );
+        } else if (state is LoginingWithFacebookErrorState) {
+          isLoading = false;
+          print(state.error);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                state.error.toString(),
+                style: const TextStyle(
+                  fontFamily: 'Lato',
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white,
+                ),
+              ),
+              backgroundColor: Colors.redAccent,
+            ),
+          );
         }
       },
       builder: (context, state) {
@@ -232,10 +258,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           icon: 'google.png',
                         ),
                       ),
-                      LoginOptionCard(
-                        mainText: 'Continue with Facebook',
-                        width: screenWidth,
-                        icon: 'facebook.png',
+                      GestureDetector(
+                        onTap: () {
+                          _authBloc.add(LoginWithFacebookButtonClickedEvent());
+                        },
+                        child: LoginOptionCard(
+                          mainText: 'Continue with Facebook',
+                          width: screenWidth,
+                          icon: 'facebook.png',
+                        ),
                       ),
                       const Spacer(),
                     ],

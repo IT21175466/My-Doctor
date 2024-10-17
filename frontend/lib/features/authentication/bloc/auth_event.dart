@@ -21,3 +21,5 @@ class ValidatingSessionEvent extends AuthEvent {
 }
 
 class LoginWithGoogleButtonClickedEvent extends AuthEvent {}
+
+class LoginWithFacebookButtonClickedEvent extends AuthEvent {}

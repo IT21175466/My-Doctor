@@ -43,3 +43,12 @@ class LoginingWithGoogleErrorState extends AuthState {
   final String error;
   LoginingWithGoogleErrorState({required this.error});
 }
+
+class LoginingWithFacebookState extends AuthState {}
+
+class LoginingWithFacebookSucessState extends AuthState {}
+
+class LoginingWithFacebookErrorState extends AuthState {
+  final String error;
+  LoginingWithFacebookErrorState({required this.error});
+}

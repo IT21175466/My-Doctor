@@ -172,7 +172,7 @@ const manualLoginWithEmailPassword = async (req, res) => {
 };
 
 //Sign In With Google
-const signInWithGoogle = async (req, res) => {
+const signInWithGoogleOrFacebook = async (req, res) => {
     const email = req.body.email;
     const uID = req.body.uID;
 
@@ -210,9 +210,9 @@ const signInWithGoogle = async (req, res) => {
         });
         
     } catch (error) {
-        console.error('Error verifying Google ID token:', error);
+        console.error('Error verifying Google or Facebook ID token:', error);
         return res.status(401).json({ error: 'Invalid ID token' });
     }
 };
 
-module.exports = { manualSignUpWithEmailPassword, signInWithGoogle, manualLoginWithEmailPassword, validateSession };
+module.exports = { manualSignUpWithEmailPassword, signInWithGoogleOrFacebook, manualLoginWithEmailPassword, validateSession };
