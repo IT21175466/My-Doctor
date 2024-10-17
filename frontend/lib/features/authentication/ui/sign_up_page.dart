@@ -40,7 +40,7 @@ class _SignUpPageState extends State<SignUpPage> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => HomePage(),
+              builder: (context) => const HomePage(),
             ),
           );
         } else if (state is SignUpErrorState) {
@@ -49,7 +49,7 @@ class _SignUpPageState extends State<SignUpPage> {
             SnackBar(
               content: Text(
                 state.error.toString(),
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'Lato',
                   fontWeight: FontWeight.w400,
                   color: Colors.white,
@@ -68,13 +68,14 @@ class _SignUpPageState extends State<SignUpPage> {
                 Container(
                   height: screenHeight - AppBar().preferredSize.height,
                   width: screenWidth,
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Spacer(),
-                      Spacer(),
-                      Text(
+                      const Spacer(),
+                      const Spacer(),
+                      const Text(
                         'SignUp',
                         style: TextStyle(
                           fontFamily: 'Lato',
@@ -118,7 +119,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 50,
                       ),
                       CustomTextField(
@@ -139,7 +140,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           if (emailController.text.isEmpty ||
                               passwordController.text.isEmpty) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
+                              const SnackBar(
                                 content: Text(
                                   'Please enter required details!',
                                   style: TextStyle(
@@ -176,8 +177,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             width: screenWidth / 3,
                             color: AppColors.borderGrayColor,
                           ),
-                          Spacer(),
-                          Text(
+                          const Spacer(),
+                          const Text(
                             'Or',
                             style: TextStyle(
                               fontFamily: 'Lato',
@@ -186,7 +187,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               fontSize: 15,
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Container(
                             height: 1,
                             width: screenWidth / 3,
@@ -207,7 +208,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         width: screenWidth,
                         icon: 'facebook.png',
                       ),
-                      Spacer(),
+                      const Spacer(),
                     ],
                   ),
                 ),
@@ -216,13 +217,13 @@ class _SignUpPageState extends State<SignUpPage> {
                         height: screenHeight,
                         width: screenWidth,
                         color: Colors.black.withOpacity(0.6),
-                        child: Center(
+                        child: const Center(
                           child: CircularProgressIndicator(
                             color: Colors.white,
                           ),
                         ),
                       )
-                    : SizedBox(),
+                    : const SizedBox(),
               ],
             ),
           ),
