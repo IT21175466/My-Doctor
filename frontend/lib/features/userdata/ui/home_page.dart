@@ -62,11 +62,11 @@ class _HomePageState extends State<HomePage> {
             appBar: AppBar(
               title: Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.logout,
                     color: Colors.transparent,
                   ),
-                  Spacer(),
+                  const Spacer(),
                   const Text(
                     'Home Page',
                     style: TextStyle(
@@ -137,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                         decoration: BoxDecoration(
                           color: Colors.black.withOpacity(0.6),
                         ),
-                        child: Column(
+                        child: const Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -146,7 +146,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             Text(
                               'Getting User Data...',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Lato',
                                 fontWeight: FontWeight.w500,
                                 color: AppColors.textColor,
