@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_doctor/constants/app_colors.dart';
 import 'package:my_doctor/features/userdata/bloc/userdata_bloc.dart';
-import 'package:my_doctor/services/secure_storage.dart';
 import 'package:my_doctor/views/splash_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,6 +15,7 @@ class _HomePageState extends State<HomePage> {
   String email = '';
 
   bool isLoading = false;
+  bool isLoggingOut = false;
 
   final UserdataBloc _userdataBloc = UserdataBloc();
 
@@ -54,6 +54,30 @@ class _HomePageState extends State<HomePage> {
               backgroundColor: Colors.redAccent,
             ),
           );
+        } else if (state is LoggingOutErrorState) {
+          isLoggingOut = true;
+        } else if (state is LoggingOutSucessState) {
+          isLoggingOut = false;
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const SplashScreen()),
+            (route) => false,
+          );
+        } else if (state is LoggingOutErrorState) {
+          isLoggingOut = false;
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                state.error.toString(),
+                style: const TextStyle(
+                  fontFamily: 'Lato',
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white,
+                ),
+              ),
+              backgroundColor: Colors.redAccent,
+            ),
+          );
         }
       },
       builder: (context, state) {
@@ -79,13 +103,7 @@ class _HomePageState extends State<HomePage> {
                   const Spacer(),
                   GestureDetector(
                     onTap: () async {
-                      await SecureStorage().deleteSessionToken();
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SplashScreen()),
-                        (route) => false,
-                      );
+                      _userdataBloc.add(LoginingOutEvent());
                     },
                     child: const Icon(
                       Icons.logout,
@@ -146,6 +164,35 @@ class _HomePageState extends State<HomePage> {
                             ),
                             Text(
                               'Getting User Data...',
+                              style: TextStyle(
+                                fontFamily: 'Lato',
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.textColor,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : const SizedBox(),
+                isLoggingOut
+                    ? Container(
+                        height: screenHeight,
+                        width: screenWidth,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 15),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.6),
+                        ),
+                        child: const Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                            Text(
+                              'Logging Out...',
                               style: TextStyle(
                                 fontFamily: 'Lato',
                                 fontWeight: FontWeight.w500,

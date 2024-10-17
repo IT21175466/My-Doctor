@@ -88,4 +88,37 @@ class AuthRepository {
       throw errorMessage;
     }
   }
+
+  //Google Login
+  Future<void> loginWithGoogle(String? email, String? userID) async {
+    final response = await http.post(
+      Uri.parse('http://10.0.2.2:8080/api/auth/signinwithgoogle'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'email': email,
+        'uID': userID,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+
+      //Get sessionID
+      String sessionID = data['token'];
+
+      await SecureStorage().storeSessionToken('token', sessionID);
+    } else if (response.statusCode == 401) {
+      final data = jsonDecode(response.body);
+
+      String errorMessage = data['message'] ?? 'An unknown error occurred';
+
+      throw errorMessage;
+    } else {
+      final data = jsonDecode(response.body);
+
+      String errorMessage = data['error'] ?? 'An unknown error occurred';
+
+      throw errorMessage;
+    }
+  }
 }

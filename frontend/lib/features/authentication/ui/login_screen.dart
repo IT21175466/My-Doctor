@@ -57,6 +57,31 @@ class _LoginScreenState extends State<LoginScreen> {
               backgroundColor: Colors.redAccent,
             ),
           );
+        } else if (state is LoginingWithGoogleState) {
+          isLoading = true;
+        } else if (state is LoginingWithGoogleSucessState) {
+          isLoading = false;
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomePage(),
+            ),
+          );
+        } else if (state is LoginingWithGoogleErrorState) {
+          isLoading = false;
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                state.error.toString(),
+                style: const TextStyle(
+                  fontFamily: 'Lato',
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white,
+                ),
+              ),
+              backgroundColor: Colors.redAccent,
+            ),
+          );
         }
       },
       builder: (context, state) {
@@ -197,10 +222,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         height: 25,
                       ),
-                      LoginOptionCard(
-                        mainText: 'Continue with Google',
-                        width: screenWidth,
-                        icon: 'google.png',
+                      GestureDetector(
+                        onTap: () {
+                          _authBloc.add(LoginWithGoogleButtonClickedEvent());
+                        },
+                        child: LoginOptionCard(
+                          mainText: 'Continue with Google',
+                          width: screenWidth,
+                          icon: 'google.png',
+                        ),
                       ),
                       LoginOptionCard(
                         mainText: 'Continue with Facebook',

@@ -3,17 +3,20 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:my_doctor/repositories/auth_repository.dart';
+import 'package:my_doctor/services/auth_services.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _authRepository = AuthRepository();
+  final AuthServices _authServices = AuthServices();
 
   AuthBloc() : super(AuthInitial()) {
     on<SignUpButtonClickedEvent>(signUpButtonClickedEvent);
     on<LoginButtonClickedEvent>(loginButtonClickedEvent);
     on<ValidatingSessionEvent>(validatingSessionEvent);
+    on<LoginWithGoogleButtonClickedEvent>(loginWithGoogleButtonClickedEvent);
   }
 
   FutureOr<void> signUpButtonClickedEvent(
@@ -47,6 +50,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           isValiedSession: _authRepository.isValiedSession));
     } catch (e) {
       emit(ValidatingSessionErrorState(error: e.toString()));
+    }
+  }
+
+  FutureOr<void> loginWithGoogleButtonClickedEvent(
+      LoginWithGoogleButtonClickedEvent event, Emitter<AuthState> emit) async {
+    try {
+      emit(LoginingWithGoogleState());
+      await _authServices.signInWithGoogle();
+      emit(LoginingWithGoogleSucessState());
+    } catch (e) {
+      emit(LoginingWithGoogleErrorState(error: e.toString()));
     }
   }
 }

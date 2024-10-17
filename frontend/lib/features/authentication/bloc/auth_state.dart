@@ -34,3 +34,12 @@ class ValidatingSessionErrorState extends AuthState {
   final String error;
   ValidatingSessionErrorState({required this.error});
 }
+
+class LoginingWithGoogleState extends AuthState {}
+
+class LoginingWithGoogleSucessState extends AuthState {}
+
+class LoginingWithGoogleErrorState extends AuthState {
+  final String error;
+  LoginingWithGoogleErrorState({required this.error});
+}
