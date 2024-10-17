@@ -198,12 +198,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 25,
                       ),
                       LoginOptionCard(
-                        mainText: 'Login with Google',
+                        mainText: 'Continue with Google',
                         width: screenWidth,
                         icon: 'google.png',
                       ),
                       LoginOptionCard(
-                        mainText: 'Login with Facebook',
+                        mainText: 'Continue with Facebook',
                         width: screenWidth,
                         icon: 'facebook.png',
                       ),
