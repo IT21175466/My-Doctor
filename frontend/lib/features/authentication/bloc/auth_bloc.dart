@@ -13,6 +13,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial()) {
     on<SignUpButtonClickedEvent>(signUpButtonClickedEvent);
     on<LoginButtonClickedEvent>(loginButtonClickedEvent);
+    on<ValidatingSessionEvent>(validatingSessionEvent);
   }
 
   FutureOr<void> signUpButtonClickedEvent(
@@ -34,6 +35,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(LoginSucessState());
     } catch (e) {
       emit(LoginErrorState(error: e.toString()));
+    }
+  }
+
+  FutureOr<void> validatingSessionEvent(
+      ValidatingSessionEvent event, Emitter<AuthState> emit) async {
+    try {
+      emit(ValidatingSessionState());
+      await _authRepository.validateSession(event.token);
+      emit(ValidatingSessionSucessState(
+          isValiedSession: _authRepository.isValiedSession));
+    } catch (e) {
+      emit(ValidatingSessionErrorState(error: e.toString()));
     }
   }
 }

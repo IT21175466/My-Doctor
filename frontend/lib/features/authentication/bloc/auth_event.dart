@@ -14,3 +14,8 @@ class LoginButtonClickedEvent extends AuthEvent {
   final String password;
   LoginButtonClickedEvent({required this.email, required this.password});
 }
+
+class ValidatingSessionEvent extends AuthEvent {
+  final String token;
+  ValidatingSessionEvent({required this.token});
+}

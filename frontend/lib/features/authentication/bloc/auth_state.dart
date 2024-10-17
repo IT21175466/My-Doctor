@@ -22,3 +22,15 @@ class LoginErrorState extends AuthState {
   final String error;
   LoginErrorState({required this.error});
 }
+
+class ValidatingSessionState extends AuthState {}
+
+class ValidatingSessionSucessState extends AuthState {
+  final bool isValiedSession;
+  ValidatingSessionSucessState({required this.isValiedSession});
+}
+
+class ValidatingSessionErrorState extends AuthState {
+  final String error;
+  ValidatingSessionErrorState({required this.error});
+}

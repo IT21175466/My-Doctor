@@ -6,6 +6,24 @@ const validatePassword = (password) => {
     return password.length >= 8 && /[A-Z]/.test(password) && /[0-9]/.test(password) && /[!@#$%^&*]/.test(password);
 };
 
+//validate session token
+const validateSession = async (req, res) => {
+    const authHeader = req.headers['authorization'];
+
+    if (!authHeader) {
+        return res.status(401).json({ message: 'No session token provided.' });
+    }
+
+    //Validate session
+    req.sessionStore.get(authHeader, (err, session) => {
+        if (err || !session) {
+            return res.status(401).json({ message: 'Invalid session token.' });
+        }
+
+        return res.status(200).json({ message: 'Session is valid.' });
+    });
+};
+
 //Manual SignUp
 const manualSignUpWithEmailPassword = async (req, res) => {
     
@@ -184,4 +202,4 @@ const signInWithGoogle = async (req, res) => {
     }
 };
 
-module.exports = { manualSignUpWithEmailPassword, signInWithGoogle, manualLoginWithEmailPassword };
+module.exports = { manualSignUpWithEmailPassword, signInWithGoogle, manualLoginWithEmailPassword, validateSession };
