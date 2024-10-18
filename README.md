@@ -29,3 +29,6 @@ Step 6: Add the SHA-1 Certificate to Firebase
   4. Scroll down to Your apps and select your Android app.
   5. Under SHA certificate fingerprints, click Add Fingerprint.
   6. Paste your new SHA-1 key and click Save.
+
+Step 7: Run the Flutter App
+Connect an emulator or a physical device.
