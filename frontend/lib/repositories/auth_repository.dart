@@ -6,7 +6,7 @@ class AuthRepository {
   bool isValiedSession = false;
   Future<void> validateSession(String token) async {
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:8080/api/session/validate'),
+      Uri.parse('http://54.224.123.215:8080/api/session/validate'),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': token,
@@ -29,7 +29,7 @@ class AuthRepository {
   //Manual SignUp
   Future<void> manualSignUp(String email, String password) async {
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:8080/api/auth/manualsignup'),
+      Uri.parse('http://54.224.123.215:8080/api/auth/manualsignup'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         'email': email,
@@ -57,7 +57,7 @@ class AuthRepository {
   //Manual Login
   Future<void> manualLogin(String email, String password) async {
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:8080/api/auth/manuallogin'),
+      Uri.parse('http://54.224.123.215:8080/api/auth/manuallogin'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         'email': email,
@@ -92,7 +92,8 @@ class AuthRepository {
   //Google or Facebook Login
   Future<void> loginWithGoogleAndFacebook(String? email, String? userID) async {
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:8080/api/auth/signinwithgoogleorfacebook'),
+      Uri.parse(
+          'http://54.224.123.215:8080/api/auth/signinwithgoogleorfacebook'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         'email': email,
