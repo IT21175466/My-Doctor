@@ -35,13 +35,15 @@ class _SplashScreenState extends State<SplashScreen> {
       _authBloc.add(ValidatingSessionEvent(token: token));
     } else {
       //No token
-      Timer(const Duration(seconds: 3), () {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => const LoginScreen(),
-          ),
-        );
-      });
+      if (mounted) {
+        Timer(const Duration(seconds: 3), () {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => const LoginScreen(),
+            ),
+          );
+        });
+      }
     }
   }
 
