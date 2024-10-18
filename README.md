@@ -15,7 +15,11 @@ Open the 'fontend' folder in vs code.
 ### Step 3: Install Dependencies
 Use 'flutter pub get'
 
-### Step 4: Verify or Update the SHA-1 Key in Firebase
+### Step 4: Run the Flutter App
+Connect an emulator or a physical device. (Android or IOS).
+Functions are not working yet. Because we need to verify SHA-1 Key.
+
+### Step 5: Verify or Update the SHA-1 Key in Firebase
 To get the SHA-1 certificate, run the following command:
 
 #### For windows
@@ -30,10 +34,10 @@ Password - `android`
 
 Password - `android`
 
-### Step 5: Copy the SHA-1 fingerprint in the output under 'Certificate fingerprints'
+### Step 6: Copy the SHA-1 fingerprint in the output under 'Certificate fingerprints'
 example - 30:13:D7:29:BC:C1:CA:C0:33:3B:CA:6B:69:A3:22:A5:92:B8:25:A2
 
-### Step 6: Add the SHA-1 Certificate to Firebase
+### Step 7: Add the SHA-1 Certificate to Firebase
   1. Go to the Firebase Console. (I Invited your emails to my firebase project)
   2. Select your project. (MyDoctor)
   3. Navigate to Project Settings (click on the gear icon on the left menu).
@@ -41,5 +45,7 @@ example - 30:13:D7:29:BC:C1:CA:C0:33:3B:CA:6B:69:A3:22:A5:92:B8:25:A2
   5. Under SHA certificate fingerprints, click Add Fingerprint.
   6. Paste your new SHA-1 key and click Save.
 
-### Step 7: Run the Flutter App
-Connect an emulator or a physical device. (Android or IOS)
+### Step 8: Test the App
+Test the functions using an emulator or a physical device. It working on both android and IOS platforms.
+
+
