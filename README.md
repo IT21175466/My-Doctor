@@ -21,7 +21,7 @@ To get the SHA-1 certificate, run the following command:
 #### For windows
 `keytool -list -v -alias androiddebugkey -keystore "C:\Users\<Your Username>\.android\debug.keystore"`
 
-`example - keytool -list -v -alias androiddebugkey -keystore "C:\Users\Chamath Harshana\.android\debug.keystore"`
+example - `keytool -list -v -alias androiddebugkey -keystore "C:\Users\Chamath Harshana\.android\debug.keystore"`
 
 Password - `android`
 
