@@ -7,6 +7,7 @@ The app supports Google and Facebook sign-in, along with manual email-password r
 
 ### Step 1: Clone the Repository
 You can use 'git clone' or github desktop.
+`git clone https://github.com/IT21175466/My-Doctor.git`
 
 ### Step 2: Open the Frontend in Visual Studio Code
 Open the 'fontend' folder in vs code.
@@ -16,7 +17,7 @@ Use 'flutter pub get'
 
 ### Step 4: Verify or Update the SHA-1 Key in Firebase
 To get the SHA-1 certificate, run the following command:
-keytool -list -v -alias androiddebugkey -keystore ~/.android/debug.keystore
+`keytool -list -v -alias androiddebugkey -keystore ~/.android/debug.keystore`
 Password - android
 
 ### Step 5: Copy the SHA-1 fingerprint in the output under 'Certificate fingerprints'
