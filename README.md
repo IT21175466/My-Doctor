@@ -17,12 +17,12 @@ Use 'flutter pub get'
 
 ### Step 4: Verify or Update the SHA-1 Key in Firebase
 To get the SHA-1 certificate, run the following command:
-\nFor windows - `keytool -list -v -alias androiddebugkey -keystore "C:\Users\<Your Username>\.android\debug.keystore"`
-\n`example - keytool -list -v -alias androiddebugkey -keystore "C:\Users\Chamath Harshana\.android\debug.keystore"`
-\nPassword - `android`
+For windows - `keytool -list -v -alias androiddebugkey -keystore "C:\Users\<Your Username>\.android\debug.keystore"`
+`example - keytool -list -v -alias androiddebugkey -keystore "C:\Users\Chamath Harshana\.android\debug.keystore"`
+Password - `android`
 
-\nFor mac - `keytool -list -v -alias androiddebugkey -keystore ~/.android/debug.keystore`
-\nPassword - `android`
+For mac - `keytool -list -v -alias androiddebugkey -keystore ~/.android/debug.keystore`
+Password - `android`
 
 ### Step 5: Copy the SHA-1 fingerprint in the output under 'Certificate fingerprints'
 example - 30:13:D7:29:BC:C1:CA:C0:33:3B:CA:6B:69:A3:22:A5:92:B8:25:A2
