@@ -1,10 +1,31 @@
 My Doctor - Flutter Frontend & AWS-Hosted Backend
 
-This project implements a login system for a patient-doctor app. The frontend is built using Flutter, and the backend is hosted on AWS, using Node.js with Express.js. The app supports Google and Facebook sign-in, along with manual email-password registration.
+This project implements a login system for a patient-doctor app. The frontend is built using Flutter, and the backend is hosted on AWS, using Node.js with Express.js. 
+The app supports Google and Facebook sign-in, along with manual email-password registration.
 
-Overview
-This app allows users to:
+Getting Started
 
-Log in via Google/Facebook (SSO).
-Sign up manually using email and password.
-Use the Flutter frontend with an AWS-hosted backend.
+Step 1: Clone the Repository
+You can use 'git clone' or github desktop.
+
+Step 2: Open the Frontend in Visual Studio Code
+Open the 'fontend' folder in vs code.
+
+Step 3: Install Dependencies
+Use 'flutter pub get'
+
+Step 4: Verify or Update the SHA-1 Key in Firebase
+To get the SHA-1 certificate, run the following command:
+keytool -list -v -alias androiddebugkey -keystore ~/.android/debug.keystore
+Password - android
+
+Step 5: Copy the SHA-1 fingerprint in the output under 'Certificate fingerprints'
+example - 30:13:D7:29:BC:C1:CA:C0:33:3B:CA:6B:69:A3:22:A5:92:B8:25:A2
+
+Step 6: Add the SHA-1 Certificate to Firebase
+  1. Go to the Firebase Console. (I Invited your emails to my firebase project)
+  2. Select your project. (MyDoctor)
+  3. Navigate to Project Settings (click on the gear icon on the left menu).
+  4. Scroll down to Your apps and select your Android app.
+  5. Under SHA certificate fingerprints, click Add Fingerprint.
+  6. Paste your new SHA-1 key and click Save.
