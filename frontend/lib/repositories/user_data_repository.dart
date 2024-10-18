@@ -6,7 +6,7 @@ class UserDataRepository {
 //Get User Data
   Future<void> getUserEmail(String sessionId) async {
     final response = await http.get(
-      Uri.parse('http://10.0.2.2:8080/api/user/userinfo'),
+      Uri.parse('http://54.224.123.215:8080/api/user/userinfo'),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': sessionId,
